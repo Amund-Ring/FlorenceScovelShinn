@@ -70,9 +70,14 @@ struct TodayScreen: View {
                 HStack(spacing: 6) {
                     Text(quote.category.rawValue)
                         .font(AppFont.sans(11, weight: .semibold))
-                        .foregroundStyle(palette.text)
+                        .foregroundStyle(colorScheme == .dark ? palette.accent : palette.text)
                         .padding(.horizontal, 9).padding(.vertical, 4)
-                        .background(palette.background, in: Capsule())
+                        .background(
+                            colorScheme == .dark
+                                ? palette.accent.opacity(0.18)
+                                : palette.background,
+                            in: Capsule()
+                        )
                     Spacer()
                     if !slot.locked {
                         SquareIconButton(systemImage: "arrow.clockwise") {
@@ -94,7 +99,7 @@ struct TodayScreen: View {
                 }
 
                 Text(quote.quote)
-                    .font(AppFont.serif(17))
+                    .font(AppFont.serif(16))
                     .lineSpacing(4)
                     .foregroundStyle(.primary)
                     .textSelection(.enabled)
