@@ -90,7 +90,9 @@ struct TodayScreen: View {
                         systemImage: slot.locked ? "lock.fill" : "lock.open",
                         tint: slot.locked ? palette.accent : nil,
                         borderColor: slot.locked ? palette.accent : nil,
-                        background: slot.locked ? palette.background : nil
+                        background: slot.locked
+                            ? (colorScheme == .dark ? palette.accent.opacity(0.18) : palette.background)
+                            : nil
                     ) {
                         var s = currentState
                         controller.toggleLock(&s, at: index)
