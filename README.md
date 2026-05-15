@@ -15,7 +15,7 @@ In progress. Built phase by phase:
 - [x] **M2** — Today screen (3 slots, lock/refresh, weighted picker)
 - [x] **M3** — Today polish (typography, colors, dark mode)
 - [x] **M4** — Tab bar + Library skeleton
-- [ ] **M5** — Library filters & sort
+- [x] **M5** — Library filters & sort
 - [ ] **M6** — Favorites / Saved screen
 - [ ] **M7** — Focus mode (full-screen swipeable viewer)
 - [ ] **M8** — Polish, app icon, final pass
