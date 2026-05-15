@@ -14,7 +14,7 @@ In progress. Built phase by phase:
 - [x] **M1** — Data foundation (models, JSON loader, SwiftData)
 - [x] **M2** — Today screen (3 slots, lock/refresh, weighted picker)
 - [x] **M3** — Today polish (typography, colors, dark mode)
-- [ ] **M4** — Tab bar + Library skeleton
+- [x] **M4** — Tab bar + Library skeleton
 - [ ] **M5** — Library filters & sort
 - [ ] **M6** — Favorites / Saved screen
 - [ ] **M7** — Focus mode (full-screen swipeable viewer)
