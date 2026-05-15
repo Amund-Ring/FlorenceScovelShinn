@@ -4,12 +4,16 @@ import SwiftData
 struct TodayScreen: View {
     @Environment(QuoteStore.self) private var store
     @Environment(\.modelContext) private var context
+    @Environment(\.colorScheme) private var colorScheme
     @Query private var userStates: [QuoteUserState]
 
     @AppStorage("todayStateJSON") private var todayStateJSON: String = ""
+    @AppStorage("darkMode") private var darkModeOverride: String = "system"  // "system" | "light" | "dark"
 
     var body: some View {
-        NavigationStack {
+        VStack(spacing: 0) {
+            header
+            Divider()
             ScrollView {
                 VStack(spacing: 12) {
                     ForEach(Array(currentState.slots.enumerated()), id: \.offset) { idx, slot in
@@ -18,84 +22,126 @@ struct TodayScreen: View {
                         }
                     }
 
-                    Button {
-                        var s = currentState
-                        controller.refreshAll(&s)
-                        save(s)
-                    } label: {
-                        Label("New Set", systemImage: "arrow.clockwise")
-                            .font(.subheadline.weight(.medium))
-                            .padding(.horizontal, 20)
-                            .padding(.vertical, 10)
-                    }
-                    .buttonStyle(.plain)
-                    .background(
-                        Capsule()
-                            .stroke(Color(.separator), lineWidth: 1.2)
-                            .background(Capsule().fill(Color(.secondarySystemBackground)))
-                    )
-                    .padding(.top, 8)
+                    newSetButton
+                        .padding(.top, 4)
                 }
-                .padding(16)
+                .padding(.horizontal, 16)
+                .padding(.top, 16)
+                .padding(.bottom, 24)
             }
-            .navigationTitle("Today")
-            .onAppear(perform: bootstrap)
         }
+        .background(AppTheme.screenBackground(colorScheme).ignoresSafeArea())
+        .preferredColorScheme(preferredScheme)
+        .onAppear(perform: bootstrap)
     }
 
-    // MARK: - Slot card (minimal styling — refined in M3)
+    // MARK: - Header
+
+    private var header: some View {
+        HStack {
+            Text("Today")
+                .font(AppFont.serif(28))
+                .foregroundStyle(.primary)
+            Spacer()
+            SquareIconButton(
+                systemImage: colorScheme == .dark ? "sun.max" : "moon",
+                size: 34
+            ) {
+                toggleDark()
+            }
+        }
+        .padding(.horizontal, 20)
+        .padding(.top, 12)
+        .padding(.bottom, 14)
+    }
+
+    // MARK: - Slot card
 
     @ViewBuilder
     private func slotCard(quote: Quote, slot: TodaySlot, index: Int) -> some View {
         let palette = CategoryColors.palette(for: quote.category)
-        VStack(alignment: .leading, spacing: 10) {
+        VStack(alignment: .leading, spacing: 0) {
             Rectangle()
                 .fill(palette.accent)
                 .frame(height: 4)
                 .frame(maxWidth: .infinity)
 
-            HStack(spacing: 6) {
-                Text(quote.category.rawValue)
-                    .font(.caption.weight(.semibold))
-                    .foregroundStyle(palette.text)
-                    .padding(.horizontal, 8).padding(.vertical, 3)
-                    .background(palette.background, in: Capsule())
-                Spacer()
-                if !slot.locked {
-                    SquareIconButton(systemImage: "arrow.clockwise") {
+            VStack(alignment: .leading, spacing: 10) {
+                HStack(spacing: 6) {
+                    Text(quote.category.rawValue)
+                        .font(AppFont.sans(11, weight: .semibold))
+                        .foregroundStyle(palette.text)
+                        .padding(.horizontal, 9).padding(.vertical, 4)
+                        .background(palette.background, in: Capsule())
+                    Spacer()
+                    if !slot.locked {
+                        SquareIconButton(systemImage: "arrow.clockwise") {
+                            var s = currentState
+                            controller.refreshSlot(&s, at: index)
+                            save(s)
+                        }
+                    }
+                    SquareIconButton(
+                        systemImage: slot.locked ? "lock.fill" : "lock.open",
+                        tint: slot.locked ? palette.accent : nil,
+                        borderColor: slot.locked ? palette.accent : nil,
+                        background: slot.locked ? palette.background : nil
+                    ) {
                         var s = currentState
-                        controller.refreshSlot(&s, at: index)
+                        controller.toggleLock(&s, at: index)
                         save(s)
                     }
                 }
-                SquareIconButton(
-                    systemImage: slot.locked ? "lock.fill" : "lock.open",
-                    tint: slot.locked ? palette.accent : nil,
-                    borderColor: slot.locked ? palette.accent : nil
-                ) {
-                    var s = currentState
-                    controller.toggleLock(&s, at: index)
-                    save(s)
-                }
+
+                Text(quote.quote)
+                    .font(AppFont.serif(17))
+                    .lineSpacing(4)
+                    .foregroundStyle(.primary)
+                    .textSelection(.enabled)
+
+                Text(quote.bookTitle)
+                    .font(AppFont.sans(12))
+                    .italic()
+                    .foregroundStyle(.secondary)
+                    .padding(.top, 2)
             }
-            .padding(.horizontal, 14)
-
-            Text(quote.quote)
-                .font(.body)
-                .padding(.horizontal, 14)
-
-            Text(quote.bookTitle)
-                .font(.caption)
-                .italic()
-                .foregroundStyle(.secondary)
-                .padding(.horizontal, 14)
-                .padding(.bottom, 12)
+            .padding(.horizontal, 16)
+            .padding(.top, 14)
+            .padding(.bottom, 14)
         }
-        .background(
-            RoundedRectangle(cornerRadius: 16)
-                .fill(Color(.secondarySystemBackground))
-        )
+        .background(Color(.secondarySystemBackground))
         .clipShape(RoundedRectangle(cornerRadius: 16))
+        .overlay(
+            RoundedRectangle(cornerRadius: 16)
+                .stroke(Color(.separator).opacity(0.5), lineWidth: 0.5)
+        )
+        .shadow(color: .black.opacity(colorScheme == .dark ? 0.3 : 0.05), radius: 4, x: 0, y: 1)
+    }
+
+    // MARK: - New Set button
+
+    private var newSetButton: some View {
+        Button {
+            var s = currentState
+            controller.refreshAll(&s)
+            save(s)
+        } label: {
+            HStack(spacing: 8) {
+                Image(systemName: "arrow.clockwise")
+                Text("New Set")
+                    .font(AppFont.sans(14, weight: .medium))
+            }
+            .padding(.horizontal, 24)
+            .padding(.vertical, 11)
+            .background(
+                Capsule().fill(Color(.secondarySystemBackground))
+            )
+            .overlay(
+                Capsule().stroke(Color(.separator), lineWidth: 1.2)
+            )
+            .foregroundStyle(.primary)
+        }
+        .buttonStyle(.plain)
     }
 
     // MARK: - State plumbing
@@ -124,23 +170,39 @@ struct TodayScreen: View {
         controller.bootstrapIfNeeded(&s)
         save(s)
     }
+
+    // MARK: - Dark mode
+
+    private var preferredScheme: ColorScheme? {
+        switch darkModeOverride {
+        case "light": return .light
+        case "dark":  return .dark
+        default:      return nil
+        }
+    }
+
+    private func toggleDark() {
+        darkModeOverride = colorScheme == .dark ? "light" : "dark"
+    }
 }
 
 private struct SquareIconButton: View {
     let systemImage: String
+    var size: CGFloat = 30
     var tint: Color? = nil
     var borderColor: Color? = nil
+    var background: Color? = nil
     let action: () -> Void
 
     var body: some View {
         Button(action: action) {
             Image(systemName: systemImage)
-                .font(.system(size: 13, weight: .medium))
+                .font(.system(size: size * 0.43, weight: .medium))
                 .foregroundStyle(tint ?? Color.secondary)
-                .frame(width: 30, height: 30)
+                .frame(width: size, height: size)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(Color(.secondarySystemBackground))
+                        .fill(background ?? Color(.secondarySystemBackground))
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
