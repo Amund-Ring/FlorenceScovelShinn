@@ -24,8 +24,16 @@ struct TodayScreen: View {
                         save(s)
                     } label: {
                         Label("New Set", systemImage: "arrow.clockwise")
+                            .font(.subheadline.weight(.medium))
+                            .padding(.horizontal, 20)
+                            .padding(.vertical, 10)
                     }
-                    .buttonStyle(.bordered)
+                    .buttonStyle(.plain)
+                    .background(
+                        Capsule()
+                            .stroke(Color(.separator), lineWidth: 1.2)
+                            .background(Capsule().fill(Color(.secondarySystemBackground)))
+                    )
                     .padding(.top, 8)
                 }
                 .padding(16)
@@ -46,7 +54,7 @@ struct TodayScreen: View {
                 .frame(height: 4)
                 .frame(maxWidth: .infinity)
 
-            HStack {
+            HStack(spacing: 6) {
                 Text(quote.category.rawValue)
                     .font(.caption.weight(.semibold))
                     .foregroundStyle(palette.text)
@@ -54,24 +62,21 @@ struct TodayScreen: View {
                     .background(palette.background, in: Capsule())
                 Spacer()
                 if !slot.locked {
-                    Button {
+                    SquareIconButton(systemImage: "arrow.clockwise") {
                         var s = currentState
                         controller.refreshSlot(&s, at: index)
                         save(s)
-                    } label: {
-                        Image(systemName: "arrow.clockwise")
                     }
-                    .buttonStyle(.bordered)
                 }
-                Button {
+                SquareIconButton(
+                    systemImage: slot.locked ? "lock.fill" : "lock.open",
+                    tint: slot.locked ? palette.accent : nil,
+                    borderColor: slot.locked ? palette.accent : nil
+                ) {
                     var s = currentState
                     controller.toggleLock(&s, at: index)
                     save(s)
-                } label: {
-                    Image(systemName: slot.locked ? "lock.fill" : "lock.open")
-                        .foregroundStyle(slot.locked ? palette.accent : .secondary)
                 }
-                .buttonStyle(.bordered)
             }
             .padding(.horizontal, 14)
 
@@ -118,6 +123,31 @@ struct TodayScreen: View {
         guard s.isEmpty else { return }
         controller.bootstrapIfNeeded(&s)
         save(s)
+    }
+}
+
+private struct SquareIconButton: View {
+    let systemImage: String
+    var tint: Color? = nil
+    var borderColor: Color? = nil
+    let action: () -> Void
+
+    var body: some View {
+        Button(action: action) {
+            Image(systemName: systemImage)
+                .font(.system(size: 13, weight: .medium))
+                .foregroundStyle(tint ?? Color.secondary)
+                .frame(width: 30, height: 30)
+                .background(
+                    RoundedRectangle(cornerRadius: 8)
+                        .fill(Color(.secondarySystemBackground))
+                )
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(borderColor ?? Color(.separator), lineWidth: 1)
+                )
+        }
+        .buttonStyle(.plain)
     }
 }
 
