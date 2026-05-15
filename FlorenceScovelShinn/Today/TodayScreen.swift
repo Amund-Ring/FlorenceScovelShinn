@@ -30,7 +30,7 @@ struct TodayScreen: View {
                 .padding(.bottom, 24)
             }
         }
-        .background(AppTheme.screenBackground(colorScheme).ignoresSafeArea())
+        .background(AppTheme.background(colorScheme).ignoresSafeArea())
         .preferredColorScheme(preferredScheme)
         .onAppear(perform: bootstrap)
     }
@@ -114,11 +114,11 @@ struct TodayScreen: View {
             .padding(.top, 14)
             .padding(.bottom, 14)
         }
-        .background(Color(.secondarySystemBackground))
+        .background(AppTheme.card(colorScheme))
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(Color(.separator).opacity(0.5), lineWidth: 0.5)
+                .stroke(AppTheme.border(colorScheme).opacity(0.5), lineWidth: 0.5)
         )
         .shadow(color: .black.opacity(colorScheme == .dark ? 0.3 : 0.05), radius: 4, x: 0, y: 1)
     }
@@ -139,10 +139,10 @@ struct TodayScreen: View {
             .padding(.horizontal, 24)
             .padding(.vertical, 11)
             .background(
-                Capsule().fill(Color(.secondarySystemBackground))
+                Capsule().fill(AppTheme.card(colorScheme))
             )
             .overlay(
-                Capsule().stroke(Color(.separator), lineWidth: 1.2)
+                Capsule().stroke(AppTheme.border(colorScheme), lineWidth: 1.2)
             )
             .foregroundStyle(.primary)
         }
@@ -192,6 +192,7 @@ struct TodayScreen: View {
 }
 
 private struct SquareIconButton: View {
+    @Environment(\.colorScheme) private var colorScheme
     let systemImage: String
     var size: CGFloat = 30
     var tint: Color? = nil
@@ -207,11 +208,11 @@ private struct SquareIconButton: View {
                 .frame(width: size, height: size)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
-                        .fill(background ?? Color(.secondarySystemBackground))
+                        .fill(background ?? AppTheme.card(colorScheme))
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 8)
-                        .stroke(borderColor ?? Color(.separator), lineWidth: 1)
+                        .stroke(borderColor ?? AppTheme.border(colorScheme), lineWidth: 1)
                 )
         }
         .buttonStyle(.plain)
