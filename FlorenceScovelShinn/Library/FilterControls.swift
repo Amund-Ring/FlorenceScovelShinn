@@ -51,7 +51,7 @@ struct FilterControls: View {
             Text(label.uppercased())
                 .font(AppFont.sans(10, weight: .semibold))
                 .tracking(0.6)
-                .foregroundStyle(AppTheme.textMuted(colorScheme))
+                .foregroundStyle(AppTheme.textLabel(colorScheme))
                 .padding(.horizontal, 16)
                 .padding(.top, 12)
                 .padding(.bottom, 7)
