@@ -21,6 +21,7 @@ struct LibraryScreen: View {
                 .padding(.trailing, 13)
             }
         }
+        
         .background(AppTheme.background(colorScheme).ignoresSafeArea())
     }
 }
