@@ -15,7 +15,7 @@ struct TodayScreen: View {
             header
             Divider()
             ScrollView {
-                VStack(spacing: 12) {
+                VStack(spacing: 14) {
                     ForEach(Array(currentState.slots.enumerated()), id: \.offset) { idx, slot in
                         if let quote = store.quote(id: slot.id) {
                             slotCard(quote: quote, slot: slot, index: idx)
@@ -23,10 +23,10 @@ struct TodayScreen: View {
                     }
 
                     newSetButton
-                        .padding(.top, 4)
+                        .padding(.top, 6)
                 }
                 .padding(.horizontal, 16)
-                .padding(.top, 16)
+                .padding(.top, 18)
                 .padding(.bottom, 24)
             }
         }
@@ -118,7 +118,7 @@ struct TodayScreen: View {
         .clipShape(RoundedRectangle(cornerRadius: 16))
         .overlay(
             RoundedRectangle(cornerRadius: 16)
-                .stroke(AppTheme.border(colorScheme).opacity(0.5), lineWidth: 0.5)
+                .stroke(AppTheme.border(colorScheme), lineWidth: 1)
         )
         .shadow(color: .black.opacity(colorScheme == .dark ? 0.3 : 0.05), radius: 4, x: 0, y: 1)
     }
