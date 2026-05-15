@@ -69,7 +69,7 @@ struct TodayScreen: View {
             VStack(alignment: .leading, spacing: 10) {
                 HStack(spacing: 6) {
                     Text(quote.category.rawValue)
-                        .font(AppFont.sans(11, weight: .semibold))
+                        .font(AppFont.sans(12, weight: .semibold))
                         .foregroundStyle(colorScheme == .dark ? palette.accent : palette.text)
                         .padding(.horizontal, 9).padding(.vertical, 4)
                         .background(
@@ -99,16 +99,18 @@ struct TodayScreen: View {
                 }
 
                 Text(quote.quote)
-                    .font(AppFont.serif(16))
+                    .font(AppFont.serif(15))
                     .lineSpacing(4)
                     .foregroundStyle(.primary)
                     .textSelection(.enabled)
+                    .padding(.horizontal, 6)
 
                 Text(quote.bookTitle)
                     .font(AppFont.sans(12))
                     .italic()
                     .foregroundStyle(.secondary)
                     .padding(.top, 2)
+                    .padding(.horizontal, 6)
             }
             .padding(.horizontal, 16)
             .padding(.top, 14)
