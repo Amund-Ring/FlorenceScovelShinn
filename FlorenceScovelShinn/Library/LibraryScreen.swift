@@ -17,8 +17,8 @@ struct LibraryScreen: View {
                         )
                     }
                 }
-                .padding(.leading, 16)
-                .padding(.trailing, 13)
+                .padding(.leading, 18)
+                .padding(.trailing, 16)
             }
         }
         

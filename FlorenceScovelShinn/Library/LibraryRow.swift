@@ -28,13 +28,14 @@ struct LibraryRow: View {
                         .foregroundStyle(.primary)
                         .textSelection(.enabled)
 
-                    HStack(spacing: 6) {
+                    HStack(alignment: .bottom, spacing: 6) {
                         CategoryPill(category: quote.category)
                         Text(quote.bookTitle)
                             .font(AppFont.sans(11))
                             .italic()
                             .foregroundStyle(AppTheme.textMuted(colorScheme))
                             .lineLimit(1)
+                            .padding(.bottom, 2)
                     }
                 }
                 .frame(maxWidth: .infinity, alignment: .leading)
@@ -65,8 +66,8 @@ struct CategoryPill: View {
         Text(category.rawValue)
             .font(AppFont.sans(11, weight: .medium))
             .foregroundStyle(colorScheme == .dark ? palette.accent : palette.text)
-            .padding(.horizontal, 7)
-            .padding(.vertical, 2)
+            .padding(.horizontal, 8)
+            .padding(.vertical, 3)
             .background(
                 colorScheme == .dark
                     ? palette.accent.opacity(0.18)

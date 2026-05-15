@@ -140,8 +140,8 @@ struct TodayScreen: View {
                 Text("New Set")
                     .font(AppFont.sans(14, weight: .medium))
             }
-            .padding(.horizontal, 24)
-            .padding(.vertical, 11)
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
             .background(
                 Capsule().fill(AppTheme.card(colorScheme))
             )
