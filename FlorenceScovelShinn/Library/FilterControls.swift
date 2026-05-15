@@ -20,7 +20,7 @@ struct FilterControls: View {
                     }
                 }
             }
-            Divider().opacity(0.6)
+            Divider().opacity(0.8)
             chipSection(label: "Book") {
                 ForEach(allBooks, id: \.id) { item in
                     chip(label: item.label, isActive: filters.book == item.id) {
@@ -28,7 +28,7 @@ struct FilterControls: View {
                     }
                 }
             }
-            Divider().opacity(0.6)
+            Divider().opacity(0.8)
             chipSection(label: "Sort by") {
                 ForEach(SortMode.allCases, id: \.self) { mode in
                     chip(label: mode.label(forSaved: forSaved), isActive: filters.sort == mode) {
@@ -49,18 +49,18 @@ struct FilterControls: View {
     private func chipSection<Content: View>(label: String, @ViewBuilder _ content: () -> Content) -> some View {
         VStack(alignment: .leading, spacing: 0) {
             Text(label.uppercased())
-                .font(AppFont.sans(9, weight: .semibold))
+                .font(AppFont.sans(10, weight: .semibold))
                 .tracking(0.6)
                 .foregroundStyle(AppTheme.textMuted(colorScheme))
                 .padding(.horizontal, 16)
-                .padding(.top, 10)
-                .padding(.bottom, 5)
+                .padding(.top, 12)
+                .padding(.bottom, 7)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 6) {
                     content()
                 }
                 .padding(.horizontal, 16)
-                .padding(.bottom, 10)
+                .padding(.bottom, 12)
             }
         }
     }
