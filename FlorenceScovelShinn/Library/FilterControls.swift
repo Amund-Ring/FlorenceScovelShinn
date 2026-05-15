@@ -77,7 +77,7 @@ struct FilterControls: View {
                     Capsule().fill(isActive ? activeBackground : AppTheme.card(colorScheme))
                 )
                 .overlay(
-                    Capsule().stroke(isActive ? activeBorder : AppTheme.border(colorScheme), lineWidth: 1)
+                    Capsule().strokeBorder(isActive ? activeBorder : AppTheme.border(colorScheme), lineWidth: 1)
                 )
         }
         .buttonStyle(.plain)
