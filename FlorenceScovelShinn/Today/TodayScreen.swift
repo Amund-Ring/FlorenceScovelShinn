@@ -11,6 +11,7 @@ struct TodayScreen: View {
     @AppStorage("darkMode") private var darkModeOverride: String = "system"  // "system" | "light" | "dark"
 
     @State private var focusStartIndex: Int? = nil
+    @State private var newSetRotation: Double = 0
 
     private var actions: UserStateActions {
         UserStateActions(context: context, userStates: userStates)
@@ -104,12 +105,15 @@ struct TodayScreen: View {
                                 : palette.background,
                             in: Capsule()
                         )
+                        .contentTransition(.opacity)
                     Spacer()
                     if !slot.locked {
                         SquareIconButton(systemImage: "arrow.clockwise") {
                             var s = currentState
-                            controller.refreshSlot(&s, at: index)
-                            save(s)
+                            withAnimation(.easeInOut(duration: 0.28)) {
+                                controller.refreshSlot(&s, at: index)
+                                save(s)
+                            }
                         }
                     }
                     SquareIconButton(
@@ -132,6 +136,7 @@ struct TodayScreen: View {
                     .foregroundStyle(.primary)
                     .textSelection(.enabled)
                     .padding(.horizontal, 6)
+                    .contentTransition(.opacity)
 
                 Text(quote.bookTitle)
                     .font(AppFont.sans(12.5))
@@ -139,6 +144,7 @@ struct TodayScreen: View {
                     .foregroundStyle(.secondary)
                     .padding(.top, 2)
                     .padding(.horizontal, 6)
+                    .contentTransition(.opacity)
             }
             .padding(.horizontal, 16)
             .padding(.top, 14)
@@ -158,11 +164,15 @@ struct TodayScreen: View {
     private var newSetButton: some View {
         Button {
             var s = currentState
-            controller.refreshAll(&s)
-            save(s)
+            withAnimation(.easeInOut(duration: 0.5)) {
+                newSetRotation += 360
+                controller.refreshAll(&s)
+                save(s)
+            }
         } label: {
             HStack(spacing: 8) {
                 Image(systemName: "arrow.clockwise")
+                    .rotationEffect(.degrees(newSetRotation))
                 Text("New Set")
                     .font(AppFont.sans(14, weight: .medium))
             }

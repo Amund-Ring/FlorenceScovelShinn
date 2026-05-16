@@ -67,7 +67,11 @@ struct FilterControls: View {
 
     @ViewBuilder
     private func chip(label: String, isActive: Bool, action: @escaping () -> Void) -> some View {
-        Button(action: action) {
+        Button {
+            withAnimation(.spring(response: 0.32, dampingFraction: 0.65)) {
+                action()
+            }
+        } label: {
             Text(label)
                 .font(AppFont.sans(12, weight: .medium))
                 .padding(.horizontal, 13)
@@ -79,6 +83,8 @@ struct FilterControls: View {
                 .overlay(
                     Capsule().strokeBorder(isActive ? activeBorder : AppTheme.border(colorScheme), lineWidth: 1)
                 )
+                .scaleEffect(isActive ? 1.0 : 1.0)  // anchor for spring; harmless
+                .animation(.spring(response: 0.32, dampingFraction: 0.65), value: isActive)
         }
         .buttonStyle(.plain)
     }
