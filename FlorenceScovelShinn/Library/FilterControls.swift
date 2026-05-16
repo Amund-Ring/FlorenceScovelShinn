@@ -54,12 +54,13 @@ struct FilterControls: View {
                 .foregroundStyle(AppTheme.textLabel(colorScheme))
                 .padding(.horizontal, 16)
                 .padding(.top, 12)
-                .padding(.bottom, 7)
+                .padding(.bottom, 4)
             ScrollView(.horizontal, showsIndicators: false) {
                 HStack(spacing: 8) {
                     content()
                 }
                 .padding(.horizontal, 16)
+                .padding(.top, 4)
                 .padding(.bottom, 12)
             }
         }
