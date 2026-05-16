@@ -65,21 +65,26 @@ struct TodayScreen: View {
     // MARK: - Header
 
     private var header: some View {
-        HStack {
+        HStack(spacing: 8) {
             Text("Today")
                 .font(AppFont.serif(29))
                 .foregroundStyle(.primary)
             Spacer()
-            SquareIconButton(
-                systemImage: colorScheme == .dark ? "sun.max" : "moon",
-                size: 34
-            ) {
-                toggleDark()
+            SquareIconButton(systemImage: appearanceIcon, size: 34) {
+                cycleAppearance()
             }
         }
         .padding(.horizontal, 20)
         .padding(.top, 12)
         .padding(.bottom, 14)
+    }
+
+    private var appearanceIcon: String {
+        switch darkModeOverride {
+        case "light": return "sun.max"
+        case "dark":  return "moon"
+        default:      return "circle.lefthalf.filled"   // "system"
+        }
     }
 
     // MARK: - Slot card
@@ -226,8 +231,12 @@ struct TodayScreen: View {
         }
     }
 
-    private func toggleDark() {
-        darkModeOverride = colorScheme == .dark ? "light" : "dark"
+    private func cycleAppearance() {
+        switch darkModeOverride {
+        case "system": darkModeOverride = "light"
+        case "light":  darkModeOverride = "dark"
+        default:       darkModeOverride = "system"   // "dark" → "system"
+        }
     }
 }
 
