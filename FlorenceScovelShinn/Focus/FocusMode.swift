@@ -27,10 +27,10 @@ struct FocusMode: View {
     /// Match the PWA's scaling: longer quotes get smaller text.
     private var quoteFontSize: CGFloat {
         let len = current.quote.count
-        if len > 220 { return 15.5 }
+        if len > 220 { return 17.5 }
         if len > 150 { return 18.5 }
         if len > 100 { return 20.5 }
-        return 23.5
+        return 21
     }
 
     var body: some View {
@@ -78,11 +78,18 @@ struct FocusMode: View {
                 .tracking(4)
                 .foregroundStyle((colorScheme == .dark ? palette.accent : palette.text).opacity(0.6))
 
-            Text("\u{201C}\(current.quote)\u{201D}")
+//            Text("\u{201C}\(current.quote)\u{201D}")
+            Text(current.quote)
                 .font(AppFont.serif(quoteFontSize))
                 .lineSpacing(quoteFontSize * 0.45)
                 .foregroundStyle(.primary)
                 .multilineTextAlignment(.center)
+                .padding(.horizontal, 20)
+//                .multilineTextAlignment(.leading)
+            
+//            Text("\(quoteFontSize, specifier: "%.1f")pt")
+//                .font(.system(size: 11, weight: .medium).monospacedDigit())
+//                .foregroundStyle(.secondary)
 
             VStack(spacing: 5) {
                 Text(current.bookTitle)
@@ -90,7 +97,7 @@ struct FocusMode: View {
                     .italic()
                     .foregroundStyle(.secondary)
                 Text(current.chapterTitle)
-                    .font(AppFont.sans(16))
+                    .font(AppFont.sans(15.5))
                     .italic()
                     .foregroundStyle(AppTheme.textMuted(colorScheme))
             }
@@ -100,7 +107,7 @@ struct FocusMode: View {
                     .padding(.top, 8)
             }
         }
-        .padding(.horizontal, 36)
+        .padding(.horizontal, 30)
         .padding(.vertical, 24)
         .opacity(transitioning ? 0 : 1)
         .offset(x: dragOffset * 0.4)

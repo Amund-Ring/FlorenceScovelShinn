@@ -63,7 +63,7 @@ struct TodayScreen: View {
     private var header: some View {
         HStack {
             Text("Today")
-                .font(AppFont.serif(28))
+                .font(AppFont.serif(29))
                 .foregroundStyle(.primary)
             Spacer()
             SquareIconButton(

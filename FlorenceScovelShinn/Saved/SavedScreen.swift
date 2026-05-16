@@ -132,7 +132,7 @@ struct SavedScreen: View {
     private var header: some View {
         HStack {
             Text("Saved")
-                .font(AppFont.serif(28))
+                .font(AppFont.serif(29))
                 .foregroundStyle(.primary)
             Spacer()
             HStack(spacing: 8) {

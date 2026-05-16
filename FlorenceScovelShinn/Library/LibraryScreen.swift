@@ -103,7 +103,7 @@ struct LibraryScreen: View {
     private var header: some View {
         HStack {
             Text("Library")
-                .font(AppFont.serif(28))
+                .font(AppFont.serif(29))
                 .foregroundStyle(.primary)
             Spacer()
             HStack(spacing: 8) {
