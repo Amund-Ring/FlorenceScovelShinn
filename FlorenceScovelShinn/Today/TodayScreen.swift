@@ -10,6 +10,16 @@ struct TodayScreen: View {
     @AppStorage("todayStateJSON") private var todayStateJSON: String = ""
     @AppStorage("darkMode") private var darkModeOverride: String = "system"  // "system" | "light" | "dark"
 
+    @State private var focusStartIndex: Int? = nil
+
+    private var actions: UserStateActions {
+        UserStateActions(context: context, userStates: userStates)
+    }
+
+    private var todayQuotes: [Quote] {
+        currentState.slots.compactMap { store.quote(id: $0.id) }
+    }
+
     var body: some View {
         VStack(spacing: 0) {
             header
@@ -19,6 +29,8 @@ struct TodayScreen: View {
                     ForEach(Array(currentState.slots.enumerated()), id: \.offset) { idx, slot in
                         if let quote = store.quote(id: slot.id) {
                             slotCard(quote: quote, slot: slot, index: idx)
+                                .contentShape(Rectangle())
+                                .onTapGesture { focusStartIndex = idx }
                         }
                     }
 
@@ -33,6 +45,17 @@ struct TodayScreen: View {
         .background(AppTheme.background(colorScheme).ignoresSafeArea())
         .preferredColorScheme(preferredScheme)
         .onAppear(perform: bootstrap)
+        .fullScreenCover(item: Binding(
+            get: { focusStartIndex.map { FocusPresentation(startIndex: $0) } },
+            set: { focusStartIndex = $0?.startIndex }
+        )) { presentation in
+            FocusMode(
+                quotes: todayQuotes,
+                idx: presentation.startIndex,
+                isFavorite: { actions.isFavorite(quoteId: $0) },
+                onToggleFavorite: { actions.toggleFavorite(quoteId: $0) }
+            )
+        }
     }
 
     // MARK: - Header

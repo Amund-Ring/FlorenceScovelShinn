@@ -15,6 +15,7 @@ struct SavedScreen: View {
     @State private var showSearch: Bool = false
     @State private var showControls: Bool = false
     @State private var slotPickerQuote: Quote? = nil
+    @State private var focusStartIndex: Int? = nil
 
     private var actions: UserStateActions {
         UserStateActions(context: context, userStates: userStates)
@@ -99,6 +100,17 @@ struct SavedScreen: View {
         .sheet(item: $slotPickerQuote) { quote in
             SlotPicker(incomingQuote: quote)
         }
+        .fullScreenCover(item: Binding(
+            get: { focusStartIndex.map { FocusPresentation(startIndex: $0) } },
+            set: { focusStartIndex = $0?.startIndex }
+        )) { presentation in
+            FocusMode(
+                quotes: filteredQuotes,
+                idx: presentation.startIndex,
+                isFavorite: { actions.isFavorite(quoteId: $0) },
+                onToggleFavorite: { actions.toggleFavorite(quoteId: $0) }
+            )
+        }
     }
 
     @ViewBuilder
@@ -107,6 +119,11 @@ struct SavedScreen: View {
             quote: quote,
             isFavorite: true,
             isLast: isLast,
+            onTap: {
+                if let idx = filteredQuotes.firstIndex(where: { $0.id == quote.id }) {
+                    focusStartIndex = idx
+                }
+            },
             onFavorite: { actions.toggleFavorite(quoteId: quote.id) },
             onAddToToday: { slotPickerQuote = quote }
         )

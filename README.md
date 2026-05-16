@@ -17,7 +17,7 @@ In progress. Built phase by phase:
 - [x] **M4** — Tab bar + Library skeleton
 - [x] **M5** — Library filters & sort
 - [x] **M6** — Favorites / Saved screen
-- [ ] **M7** — Focus mode (full-screen swipeable viewer)
+- [x] **M7** — Focus mode (full-screen swipeable viewer)
 - [ ] **M8** — Polish, app icon, final pass
 
 ## Stack
