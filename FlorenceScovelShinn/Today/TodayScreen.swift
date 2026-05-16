@@ -28,9 +28,12 @@ struct TodayScreen: View {
                 VStack(spacing: 14) {
                     ForEach(Array(currentState.slots.enumerated()), id: \.offset) { idx, slot in
                         if let quote = store.quote(id: slot.id) {
-                            slotCard(quote: quote, slot: slot, index: idx)
-                                .contentShape(Rectangle())
-                                .onTapGesture { focusStartIndex = idx }
+                            Button {
+                                focusStartIndex = idx
+                            } label: {
+                                slotCard(quote: quote, slot: slot, index: idx)
+                            }
+                            .buttonStyle(PressableCardStyle())
                         }
                     }
 

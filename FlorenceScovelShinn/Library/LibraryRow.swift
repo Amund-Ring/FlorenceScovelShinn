@@ -14,41 +14,46 @@ struct LibraryRow: View {
     var body: some View {
         let palette = CategoryColors.palette(for: quote.category)
         VStack(spacing: 0) {
-            HStack(alignment: .top, spacing: 12) {
-                RoundedRectangle(cornerRadius: 2)
-                    .fill(palette.accent)
-                    .frame(width: 3)
-                    .frame(minHeight: 32)
-                    .padding(.top, 3)
+            Button {
+                onTap?()
+            } label: {
+                HStack(alignment: .top, spacing: 12) {
+                    RoundedRectangle(cornerRadius: 2)
+                        .fill(palette.accent)
+                        .frame(width: 3)
+                        .frame(minHeight: 32)
+                        .padding(.top, 3)
 
-                VStack(alignment: .leading, spacing: 11) {
-                    Text(quote.quote)
-                        .font(AppFont.serif(14.5))
-                        .lineSpacing(3)
-                        .foregroundStyle(.primary)
-                        .textSelection(.enabled)
+                    VStack(alignment: .leading, spacing: 11) {
+                        Text(quote.quote)
+                            .font(AppFont.serif(14.5))
+                            .lineSpacing(3)
+                            .foregroundStyle(.primary)
+                            .textSelection(.enabled)
+                            .multilineTextAlignment(.leading)
 
-                    HStack(alignment: .bottom, spacing: 6) {
-                        CategoryPill(category: quote.category)
-                        Text(quote.bookTitle)
-                            .font(AppFont.sans(11.5))
-                            .italic()
-                            .foregroundStyle(AppTheme.textMuted(colorScheme))
-                            .lineLimit(1)
-                            .padding(.bottom, 2)
+                        HStack(alignment: .bottom, spacing: 6) {
+                            CategoryPill(category: quote.category)
+                            Text(quote.bookTitle)
+                                .font(AppFont.sans(11.5))
+                                .italic()
+                                .foregroundStyle(AppTheme.textMuted(colorScheme))
+                                .lineLimit(1)
+                                .padding(.bottom, 2)
+                        }
                     }
-                }
-                .frame(maxWidth: .infinity, alignment: .leading)
+                    .frame(maxWidth: .infinity, alignment: .leading)
 
-                VStack(spacing: 6) {
-                    HeartButton(isFavorite: isFavorite, action: onFavorite ?? {})
-                    PlusButton(action: onAddToToday ?? {})
+                    VStack(spacing: 6) {
+                        HeartButton(isFavorite: isFavorite, action: onFavorite ?? {})
+                        PlusButton(action: onAddToToday ?? {})
+                    }
+                    .padding(.top, 2)
                 }
-                .padding(.top, 2)
+                .padding(.vertical, 14)
+                .contentShape(Rectangle())
             }
-            .padding(.vertical, 14)
-            .contentShape(Rectangle())
-            .onTapGesture { onTap?() }
+            .buttonStyle(PressableCardStyle())
 
             if !isLast {
                 Divider().opacity(0.6)
@@ -91,6 +96,7 @@ private struct HeartButton: View {
             Image(systemName: isFavorite ? "heart.fill" : "heart")
                 .font(.system(size: 13, weight: .medium))
                 .foregroundStyle(isFavorite ? heartColor : AppTheme.textMuted(colorScheme))
+                .symbolEffect(.bounce, value: isFavorite)
                 .frame(width: 30, height: 30)
                 .background(
                     RoundedRectangle(cornerRadius: 8)
@@ -104,6 +110,7 @@ private struct HeartButton: View {
                     RoundedRectangle(cornerRadius: 8)
                         .stroke(isFavorite ? heartColor : AppTheme.border(colorScheme), lineWidth: 1)
                 )
+                .animation(.easeOut(duration: 0.18), value: isFavorite)
         }
         .buttonStyle(.plain)
     }

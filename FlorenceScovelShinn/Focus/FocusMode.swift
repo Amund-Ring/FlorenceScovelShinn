@@ -58,7 +58,8 @@ struct FocusMode: View {
                 systemImage: isFavorite(current.id) ? "heart.fill" : "heart",
                 tint: isFavorite(current.id) ? heartAccent : nil,
                 borderTint: isFavorite(current.id) ? heartAccent : nil,
-                fillTint: isFavorite(current.id) ? heartAccent.opacity(colorScheme == .dark ? 0.14 : 0.10) : nil
+                fillTint: isFavorite(current.id) ? heartAccent.opacity(colorScheme == .dark ? 0.14 : 0.10) : nil,
+                symbolEffectValue: isFavorite(current.id)
             ) {
                 onToggleFavorite(current.id)
             }
@@ -154,6 +155,7 @@ struct FocusMode: View {
         tint: Color? = nil,
         borderTint: Color? = nil,
         fillTint: Color? = nil,
+        symbolEffectValue: Bool? = nil,
         action: @escaping () -> Void
     ) -> some View {
         let radius: CGFloat = size > 36 ? 12 : 10
@@ -161,6 +163,7 @@ struct FocusMode: View {
             Image(systemName: systemImage)
                 .font(.system(size: size * 0.4, weight: .medium))
                 .foregroundStyle(tint ?? (isPrimary ? .primary : .secondary))
+                .symbolEffect(.bounce, value: symbolEffectValue ?? false)
                 .frame(width: size, height: size)
                 .background(
                     RoundedRectangle(cornerRadius: radius)
