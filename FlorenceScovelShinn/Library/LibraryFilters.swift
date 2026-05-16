@@ -26,11 +26,14 @@ struct LibraryFilters {
 }
 
 /// Apply category/book/search/sort to a list of quotes.
-/// `allQuotes` is used as the canonical order for `.date` sort.
+/// - `allQuotes` is used as the canonical order for `.date` sort in Library.
+/// - When `dateAddedLookup` is provided (Saved screen), `.date` sort uses
+///   most-recently-added first instead of book order.
 func applyFilters(
     _ quotes: [Quote],
     filters: LibraryFilters,
-    allQuotes: [Quote]
+    allQuotes: [Quote],
+    dateAddedLookup: ((Quote) -> Date?)? = nil
 ) -> [Quote] {
     var result = quotes
 
@@ -50,8 +53,12 @@ func applyFilters(
     case .alpha:
         result.sort { $0.quote.localizedCaseInsensitiveCompare($1.quote) == .orderedAscending }
     case .date:
-        let order = Dictionary(uniqueKeysWithValues: allQuotes.enumerated().map { ($1.id, $0) })
-        result.sort { (order[$0.id] ?? 0) < (order[$1.id] ?? 0) }
+        if let dateAddedLookup {
+            result.sort { (dateAddedLookup($0) ?? .distantPast) > (dateAddedLookup($1) ?? .distantPast) }
+        } else {
+            let order = Dictionary(uniqueKeysWithValues: allQuotes.enumerated().map { ($1.id, $0) })
+            result.sort { (order[$0.id] ?? 0) < (order[$1.id] ?? 0) }
+        }
     case .category:
         result.sort { a, b in
             if a.category != b.category {

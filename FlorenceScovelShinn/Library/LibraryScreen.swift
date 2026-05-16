@@ -1,8 +1,11 @@
 import SwiftUI
+import SwiftData
 
 struct LibraryScreen: View {
     @Environment(QuoteStore.self) private var store
+    @Environment(\.modelContext) private var context
     @Environment(\.colorScheme) private var colorScheme
+    @Query private var userStates: [QuoteUserState]
 
     @AppStorage("lib_category") private var category: String = "All"
     @AppStorage("lib_book")     private var book: String = "All"
@@ -11,6 +14,11 @@ struct LibraryScreen: View {
     @State private var search: String = ""
     @State private var showSearch: Bool = false
     @State private var showControls: Bool = false
+    @State private var slotPickerQuote: Quote? = nil
+
+    private var actions: UserStateActions {
+        UserStateActions(context: context, userStates: userStates)
+    }
 
     private var filters: Binding<LibraryFilters> {
         Binding(
@@ -58,12 +66,12 @@ struct LibraryScreen: View {
                         ForEach(groupedByCategory, id: \.0) { cat, items in
                             CategorySectionHeader(category: cat)
                             ForEach(Array(items.enumerated()), id: \.element.id) { idx, quote in
-                                LibraryRow(quote: quote, isLast: idx == items.count - 1)
+                                row(for: quote, isLast: idx == items.count - 1)
                             }
                         }
                     } else {
                         ForEach(Array(filteredQuotes.enumerated()), id: \.element.id) { idx, quote in
-                            LibraryRow(quote: quote, isLast: idx == filteredQuotes.count - 1)
+                            row(for: quote, isLast: idx == filteredQuotes.count - 1)
                         }
                     }
 
@@ -76,6 +84,20 @@ struct LibraryScreen: View {
             }
         }
         .background(AppTheme.background(colorScheme).ignoresSafeArea())
+        .sheet(item: $slotPickerQuote) { quote in
+            SlotPicker(incomingQuote: quote)
+        }
+    }
+
+    @ViewBuilder
+    private func row(for quote: Quote, isLast: Bool) -> some View {
+        LibraryRow(
+            quote: quote,
+            isFavorite: actions.isFavorite(quoteId: quote.id),
+            isLast: isLast,
+            onFavorite: { actions.toggleFavorite(quoteId: quote.id) },
+            onAddToToday: { slotPickerQuote = quote }
+        )
     }
 
     private var header: some View {
@@ -159,7 +181,7 @@ struct HeaderToggle: View {
                 )
                 .overlay(
                     RoundedRectangle(cornerRadius: 10)
-                        .stroke(isActive ? activeBorder : AppTheme.border(colorScheme), lineWidth: 1)
+                        .strokeBorder(isActive ? activeBorder : AppTheme.border(colorScheme), lineWidth: 1)
                 )
         }
         .buttonStyle(.plain)
@@ -185,4 +207,5 @@ struct HeaderToggle: View {
 #Preview {
     LibraryScreen()
         .environment(QuoteStore())
+        .modelContainer(for: QuoteUserState.self)
 }
