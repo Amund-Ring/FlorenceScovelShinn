@@ -21,7 +21,7 @@ struct LibraryRow: View {
                     .frame(minHeight: 32)
                     .padding(.top, 3)
 
-                VStack(alignment: .leading, spacing: 10) {
+                VStack(alignment: .leading, spacing: 11) {
                     Text(quote.quote)
                         .font(AppFont.serif(14.5))
                         .lineSpacing(3)
@@ -31,7 +31,7 @@ struct LibraryRow: View {
                     HStack(alignment: .bottom, spacing: 6) {
                         CategoryPill(category: quote.category)
                         Text(quote.bookTitle)
-                            .font(AppFont.sans(11))
+                            .font(AppFont.sans(11.5))
                             .italic()
                             .foregroundStyle(AppTheme.textMuted(colorScheme))
                             .lineLimit(1)
@@ -64,9 +64,9 @@ struct CategoryPill: View {
     var body: some View {
         let palette = CategoryColors.palette(for: category)
         Text(category.rawValue)
-            .font(AppFont.sans(11, weight: .medium))
+            .font(AppFont.sans(11.5, weight: .medium))
             .foregroundStyle(colorScheme == .dark ? palette.accent : palette.text)
-            .padding(.horizontal, 8)
+            .padding(.horizontal, 10)
             .padding(.vertical, 3)
             .background(
                 colorScheme == .dark

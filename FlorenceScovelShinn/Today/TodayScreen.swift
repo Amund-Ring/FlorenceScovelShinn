@@ -89,12 +89,12 @@ struct TodayScreen: View {
                 .frame(height: 4)
                 .frame(maxWidth: .infinity)
 
-            VStack(alignment: .leading, spacing: 10) {
+            VStack(alignment: .leading, spacing: 11) {
                 HStack(spacing: 6) {
                     Text(quote.category.rawValue)
-                        .font(AppFont.sans(12, weight: .semibold))
+                        .font(AppFont.sans(11.5, weight: .semibold))
                         .foregroundStyle(colorScheme == .dark ? palette.accent : palette.text)
-                        .padding(.horizontal, 9).padding(.vertical, 4)
+                        .padding(.horizontal, 10).padding(.vertical, 4)
                         .background(
                             colorScheme == .dark
                                 ? palette.accent.opacity(0.18)
@@ -124,14 +124,14 @@ struct TodayScreen: View {
                 }
 
                 Text(quote.quote)
-                    .font(AppFont.serif(15))
-                    .lineSpacing(4)
+                    .font(AppFont.serif(16))
+                    .lineSpacing(3)
                     .foregroundStyle(.primary)
                     .textSelection(.enabled)
                     .padding(.horizontal, 6)
 
                 Text(quote.bookTitle)
-                    .font(AppFont.sans(12))
+                    .font(AppFont.sans(12.5))
                     .italic()
                     .foregroundStyle(.secondary)
                     .padding(.top, 2)

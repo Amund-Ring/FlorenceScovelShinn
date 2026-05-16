@@ -27,10 +27,10 @@ struct FocusMode: View {
     /// Match the PWA's scaling: longer quotes get smaller text.
     private var quoteFontSize: CGFloat {
         let len = current.quote.count
-        if len > 220 { return 16 }
-        if len > 150 { return 19 }
-        if len > 100 { return 21 }
-        return 24
+        if len > 220 { return 15.5 }
+        if len > 150 { return 18.5 }
+        if len > 100 { return 20.5 }
+        return 23.5
     }
 
     var body: some View {
@@ -72,9 +72,9 @@ struct FocusMode: View {
     // MARK: - Center content
 
     private var content: some View {
-        VStack(spacing: 28) {
+        VStack(spacing: 40) {
             Text(current.category.rawValue.uppercased())
-                .font(AppFont.sans(16, weight: .semibold))
+                .font(AppFont.sans(15, weight: .semibold))
                 .tracking(4)
                 .foregroundStyle((colorScheme == .dark ? palette.accent : palette.text).opacity(0.6))
 
@@ -84,7 +84,7 @@ struct FocusMode: View {
                 .foregroundStyle(.primary)
                 .multilineTextAlignment(.center)
 
-            VStack(spacing: 4) {
+            VStack(spacing: 5) {
                 Text(current.bookTitle)
                     .font(AppFont.sans(16))
                     .italic()
