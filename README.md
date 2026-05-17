@@ -18,7 +18,9 @@ In progress. Built phase by phase:
 - [x] **M5** — Library filters & sort
 - [x] **M6** — Favorites / Saved screen
 - [x] **M7** — Focus mode (full-screen swipeable viewer)
-- [ ] **M8** — Polish, app icon, final pass
+- [x] **M8** — Polish, app icon, final pass
+
+App is feature-complete. Next phase: see [`app-store-plan.md`](./app-store-plan.md) for App Store launch.
 
 ## Stack
 
