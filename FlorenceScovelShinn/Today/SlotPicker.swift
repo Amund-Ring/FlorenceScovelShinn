@@ -37,30 +37,36 @@ struct SlotPicker: View {
 
     private var preview: some View {
         let palette = CategoryColors.palette(for: incomingQuote.category)
-        return VStack(alignment: .leading, spacing: 8) {
+        return VStack(alignment: .leading, spacing: 10) {
             Text("Add to Today")
                 .font(AppFont.serif(20))
                 .foregroundStyle(.primary)
+
             HStack(alignment: .top, spacing: 0) {
                 Rectangle()
                     .fill(palette.accent)
                     .frame(width: 3)
-                VStack(alignment: .leading, spacing: 6) {
-                    CategoryPill(category: incomingQuote.category)
+
+                VStack(alignment: .leading, spacing: 8) {
+                    Text(incomingQuote.category.rawValue)
+                        .font(AppFont.sans(11, weight: .semibold))
+                        .foregroundStyle(colorScheme == .dark ? palette.accent : palette.text)
+
                     Text(truncated(incomingQuote.quote, max: 110))
-                        .font(AppFont.serif(14))
-                        .lineSpacing(2)
+                        .font(AppFont.serif(15))
+                        .lineSpacing(3)
                         .foregroundStyle(.primary)
                 }
-                .padding(.horizontal, 12)
-                .padding(.vertical, 10)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 12)
             }
+            .fixedSize(horizontal: false, vertical: true)
             .background(
                 colorScheme == .dark
                     ? palette.accent.opacity(0.10)
                     : palette.background
             )
-            .clipShape(RoundedRectangle(cornerRadius: 10))
+            .clipShape(RoundedRectangle(cornerRadius: 12))
         }
     }
 
