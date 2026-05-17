@@ -207,7 +207,7 @@ My recommendation: **#1 (Warm & encouraging)**. It opens the door to both audien
 > **How you'll use it**
 >
 > • **Today** — three quotes chosen for you each day. Lock the ones that resonate so they stay. Refresh the rest when you want something new.
-> • **Library** — every quote from Shinn's published works in one place. Filter by theme or book. Search anything.
+> • **Library** — quotes from Shinn's published works in one place. Filter by theme or book. Search anything.
 > • **Saved** — keep the words that move you, ready to revisit.
 > • **Focus mode** — tap any quote to read it full-screen, free of distractions. Swipe through your day's set.
 > • **Light and dark** — follow your phone, or set it yourself.
@@ -362,7 +362,7 @@ Pre-written for the App Review Information field:
 > The app is not a passive quote display. It includes:
 >
 > - A daily curation system that surfaces 3 quotes per day, each with individual lock/refresh controls so the user can keep what resonates and discard what doesn't
-> - A full searchable library of every quote from her four published works, with filtering by category (Faith, Abundance, Mindset, Love) and by book, plus three sort modes
+> - A full searchable library of quotes from her four published works, with filtering by category (Faith, Abundance, Mindset, Love) and by book, plus three sort modes
 > - A user-managed favorites collection with date-added sorting and the same filtering controls
 > - A full-screen focus mode with horizontal swipe navigation between quotes
 > - Native iOS animations including symbol effects, tactile press feedback, and content crossfades
