@@ -321,50 +321,88 @@ Reasons to consider a different number:
 
 ## 7. Privacy & legal
 
-**Privacy nutrition label** — declares what data the app collects. For this app:
-- Local-only data (SwiftData, UserDefaults). No analytics. No accounts. No network requests.
-- Declaration: "Data Not Collected." Simplest possible label — a green flag for privacy-conscious users.
+**Privacy nutrition label** — ✓ "Data Not Collected." Local-only state (SwiftData, UserDefaults). No analytics, no accounts, no network requests, no third-party SDKs.
 
-**Privacy Policy URL** — required even if you collect nothing. Can be a single static HTML page.
-- Simplest path: a one-page GitHub Pages site or Notion page.
-- Sample text: "This app does not collect, transmit, or share any personal data. All your favorites and preferences stay on your device."
+**Privacy Policy URL** — ✓ Reuse the same privacy policy URL already used by Amund Ring's existing apps. Content is identical: "This app does not collect, transmit, or share any personal data. All your favorites and preferences stay on your device."
 
-**Content rights** — Florence Scovel Shinn died in **1940**. Her works are in the **public domain** in the US (life + 95 years for pre-1978 works, in some calculations; her published books from 1925/1928/1940 are clearly PD now). No licensing needed. Worth a one-liner in the description ("All quotes from her published works, in the public domain").
-
-**Open questions**
-- Comfortable using a personal Notion / GitHub Pages link for the Privacy Policy?
-- Any concerns about which jurisdictions' PD status might differ?
+**Content rights** — ✓ Florence Scovel Shinn died in **1940**. Her four published books (1925, 1928, 1940, posthumously 1945) are in the **public domain** in the US and in most jurisdictions following life + 70/95 year rules. No licensing needed, no permissions sought, no royalties owed.
 
 ---
 
-## 8. TestFlight (optional but recommended)
+## 8. TestFlight — personal use only ✓
 
-Free beta-testing infrastructure built into App Store Connect. Lets you distribute pre-release builds to up to 10,000 testers via email invite or public link.
+Skipping external beta testers. Will use TestFlight purely for personal multi-device testing (iPhone Air, iPhone 17, iPhone 12 mini, etc.) before public submission. Apple still requires the app to be uploaded to App Store Connect to install via TestFlight, but no public beta invites needed.
 
-Why it's worth doing:
-- Catches device-specific bugs (like the iPhone Air @AppStorage animation issue we hit).
-- Lets a few trusted friends/family use the app for a week before public launch.
-- Doesn't count against your App Store review queue.
-
-Cost: zero.
-
-**Open questions**
-- Want to do a small TestFlight round (5–10 people) before public submission, or go straight to public release?
+This means: archive the build, upload it, install on each personal test device, verify everything works in production-mode (not debug-mode) on each, then submit.
 
 ---
 
 ## 9. Submission & review
 
-After everything above is filled in:
-1. Archive a release build in Xcode (`Product → Archive`).
-2. Upload to App Store Connect via the Organizer window.
-3. Attach the build to your app version, complete all metadata, submit for review.
-4. Review typically takes 24–72 hours.
-5. Common rejection reasons: missing privacy policy URL, app crashes on launch, broken links in metadata, screenshots that don't represent the app.
+### The big risk: Guideline 4.2 — Minimum Functionality
 
-**Release strategy** — two options:
-- **Automatic**: app goes live the moment Apple approves.
-- **Manual**: you click a button to release after approval. Useful for coordinated launches.
+Letters from a Stoic was almost certainly rejected the first time under **App Review Guideline 4.2**: Apple thinks "content-only apps" (a book displayed on a screen, a list of quotes) lack the functionality required for the App Store and belongs in Apple Books instead.
+
+This is the single highest rejection risk for Florence. To preempt it:
+
+1. **Use the App Review Notes field** (private message to Apple, in App Store Connect → App Information → App Review Information → Notes). This is *the* most underused field by indie developers. Most developers leave it blank — but a well-written note can prevent rejection entirely by explaining functionality before the reviewer needs to discover it.
+
+2. **Lean on the precedent**: three similar apps from the same developer are already approved and live. Apple's reviewers can see this.
+
+3. **Frame Florence as an interactive tool, not a quote collection**. Emphasize the curation, lock/refresh slot system, multi-mode filtering, favorites, focus mode, animations. These are real interaction features that distinguish it from a passive book.
+
+### Draft App Review Notes
+
+Pre-written for the App Review Information field:
+
+> Hello App Review Team,
+>
+> This is an interactive daily companion built around the public-domain writings of Florence Scovel Shinn (1871–1940), a New Thought author whose works have been in the public domain for over 80 years.
+>
+> The app is not a passive quote display. It includes:
+>
+> - A daily curation system that surfaces 3 quotes per day, each with individual lock/refresh controls so the user can keep what resonates and discard what doesn't
+> - A full searchable library of every quote from her four published works, with filtering by category (Faith, Abundance, Mindset, Love) and by book, plus three sort modes
+> - A user-managed favorites collection with date-added sorting and the same filtering controls
+> - A full-screen focus mode with horizontal swipe navigation between quotes
+> - Native iOS animations including symbol effects, tactile press feedback, and content crossfades
+> - Light/dark/system appearance modes
+>
+> All user state (favorites, view counts) is stored locally on-device using SwiftData. The app collects no data, has no accounts, requires no network connection, and contains no third-party SDKs or analytics.
+>
+> For context, I have three other apps already on the App Store under this developer account:
+>
+> - Meditations by Marcus Aurelius (App ID 6476632120)
+> - Letters from a Stoic (App ID 6736611477)
+> - ACIM Workbook (App ID 6443900608)
+>
+> This is the first app I've built natively for iOS using SwiftUI.
+>
+> Thank you for reviewing.
+
+### Submission steps
+
+1. Lock in the subtitle.
+2. Generate screenshots in AppScreens.com.
+3. Confirm the privacy policy URL works (the existing one).
+4. Archive release build in Xcode (`Product → Archive`).
+5. Upload to App Store Connect via Organizer.
+6. Create the app record in App Store Connect, fill in all metadata.
+7. Paste the App Review Notes into the App Review Information field.
+8. Attach build, set pricing ($7.99), set release strategy.
+9. Submit for review.
+10. Typical wait: 24–72 hours.
+
+### Release strategy
+
+- ✓ **Manual release recommended**: click to release after approval. Lets you pick a calm moment to launch rather than a surprise.
+
+### If rejected anyway
+
+You've been through this before with Letters from a Stoic. The workflow:
+1. Read the rejection carefully — Apple cites the specific guideline.
+2. Reply via the Resolution Center in App Store Connect. Don't argue — explain. Reference the App Review Notes, point out the three existing approved apps from the same developer, and detail any specific interactivity the reviewer may have missed.
+3. Most 4.2 rejections are overturned on appeal if the app genuinely has the functionality. Yours does.
 
 ---
 
