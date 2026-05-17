@@ -19,13 +19,15 @@ struct SlotPicker: View {
             grabber
             preview
             slotsList
+            Spacer(minLength: 0)
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
         .padding(.horizontal, 20)
         .padding(.top, 8)
         .padding(.bottom, 24)
-        .background(AppTheme.background(colorScheme))
         .presentationDetents([.fraction(0.55), .medium])
         .presentationDragIndicator(.hidden)
+        .presentationBackground(AppTheme.background(colorScheme))
     }
 
     private var grabber: some View {
@@ -56,11 +58,13 @@ struct SlotPicker: View {
                         .font(AppFont.serif(15))
                         .lineSpacing(3)
                         .foregroundStyle(.primary)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .padding(.horizontal, 14)
                 .padding(.vertical, 12)
             }
             .fixedSize(horizontal: false, vertical: true)
+            .frame(maxWidth: .infinity, alignment: .leading)
             .background(
                 colorScheme == .dark
                     ? palette.accent.opacity(0.10)
@@ -68,6 +72,7 @@ struct SlotPicker: View {
             )
             .clipShape(RoundedRectangle(cornerRadius: 12))
         }
+        .padding(.top, 20)
     }
 
     private var slotsList: some View {
