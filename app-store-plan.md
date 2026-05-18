@@ -229,17 +229,17 @@ Three quotes a day from her four published books. Lock the ones that resonate, r
 
 ABOUT FLORENCE SCOVEL SHINN
 
-A pioneer of New Thought, Shinn taught that the spoken word has creative power and that manifestation begins with affirmation. Her four books — The Game of Life and How to Play It, Your Word Is Your Wand, The Secret Door to Success, and The Power of the Spoken Word — have guided seekers for nearly a century.
+A pioneer of New Thought, Shinn taught that the spoken word has creative power and that manifestation begins with affirmation. Her four published books have guided seekers for nearly a century: The Game of Life and How to Play It, Your Word Is Your Wand, The Secret Door to Success, and The Power of the Spoken Word.
 
 Her writing is rich with quotes worth living with. But her books are dense, and choosing which few to focus on each day can feel overwhelming. This app gathers more than 300 of them from her four books and surfaces a few at a time.
 
 HOW YOU'LL USE IT
 
-• Today — three quotes chosen for you each day. Lock the ones that resonate so they stay. Refresh the rest when you want something new.
-• Library — quotes from Shinn's published works in one place. Filter by theme or book. Search anything.
-• Saved — keep the words that move you, ready to revisit.
-• Focus mode — tap any quote to read it full-screen, free of distractions. Swipe through your day's set.
-• Light and dark — follow your phone, or set it yourself.
+• Today: three quotes chosen for you each day. Lock the ones that resonate so they stay. Refresh the rest when you want something new.
+• Library: quotes from Shinn's published works in one place. Filter by theme or book. Search anything.
+• Saved: keep the words that move you, ready to revisit.
+• Focus mode: tap any quote to read it full-screen, free of distractions. Swipe through your day's set.
+• Light and dark: follow your phone, or set it yourself.
 
 PRIVACY
 
