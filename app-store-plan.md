@@ -202,7 +202,7 @@ My recommendation: **#1 (Warm & encouraging)**. It opens the door to both audien
 >
 > A pioneer of New Thought, Shinn taught that the spoken word has creative power and that manifestation begins with affirmation. Her four books — *The Game of Life and How to Play It*, *Your Word Is Your Wand*, *The Secret Door to Success*, and *The Power of the Spoken Word* — have guided seekers for nearly a century.
 >
-> Her writing is rich with quotes worth living with. But her books are dense, and choosing which few to focus on each day can feel overwhelming. This app does that for you.
+> Her writing is rich with quotes worth living with. But her books are dense, and choosing which few to focus on each day can feel overwhelming. This app gathers more than 300 of them from her four books and surfaces a few at a time.
 >
 > **How you'll use it**
 >
@@ -217,6 +217,34 @@ My recommendation: **#1 (Warm & encouraging)**. It opens the door to both audien
 > No accounts. No tracking. No data leaves your device.
 
 (≈1,250 chars, well under the 4,000 limit. Opens with the curation promise — solving the "too many quotes" problem that anyone who's read Shinn knows.)
+
+**Plain text version — ready to paste into App Store Connect:**
+
+App Store descriptions are plain text only (no markdown, no HTML, no bold/italic). Section headers become ALL CAPS, book titles stay plain. This is exactly what to paste:
+
+```
+A focused way to work with Florence Scovel Shinn's wisdom.
+
+Three quotes a day from her four published books. Lock the ones that resonate, refresh the ones that don't, and keep your favorites within reach.
+
+ABOUT FLORENCE SCOVEL SHINN
+
+A pioneer of New Thought, Shinn taught that the spoken word has creative power and that manifestation begins with affirmation. Her four books — The Game of Life and How to Play It, Your Word Is Your Wand, The Secret Door to Success, and The Power of the Spoken Word — have guided seekers for nearly a century.
+
+Her writing is rich with quotes worth living with. But her books are dense, and choosing which few to focus on each day can feel overwhelming. This app gathers more than 300 of them from her four books and surfaces a few at a time.
+
+HOW YOU'LL USE IT
+
+• Today — three quotes chosen for you each day. Lock the ones that resonate so they stay. Refresh the rest when you want something new.
+• Library — quotes from Shinn's published works in one place. Filter by theme or book. Search anything.
+• Saved — keep the words that move you, ready to revisit.
+• Focus mode — tap any quote to read it full-screen, free of distractions. Swipe through your day's set.
+• Light and dark — follow your phone, or set it yourself.
+
+PRIVACY
+
+No accounts. No tracking. No data leaves your device.
+```
 
 **Keywords (100 char max, comma-separated, no spaces)**:
 
