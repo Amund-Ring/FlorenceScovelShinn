@@ -11,6 +11,8 @@ Built solo in SwiftUI with SwiftData. Ported from a PWA I built first
 ([source](https://github.com/Amund-Ring/Florence-Scovel-Shinn)) once it was
 clear the product deserved a native experience.
 
+![App Store preview — Today, Focus, Library, and Saved screens](docs/app-store-preview.png)
+
 ---
 
 ## Why this project exists
