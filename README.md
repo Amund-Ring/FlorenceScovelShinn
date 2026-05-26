@@ -118,7 +118,7 @@ in the PWA repo.
 No package dependencies, no signing setup beyond a personal team for local
 runs.
 
-## Other apps
+## My published apps
 
 - [Florence Scovel Shinn (this app)](https://apps.apple.com/no/app/florence-scovel-shinn/id6770525571) — native SwiftUI
 - [ACIM Workbook](https://apps.apple.com/no/app/acim-workbook/id6443900608) — React Native, subscription model, growing MRR
