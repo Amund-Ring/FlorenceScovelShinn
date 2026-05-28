@@ -120,7 +120,7 @@ runs.
 
 ## My published apps
 
-- [Florence Scovel Shinn (this app)](https://apps.apple.com/no/app/florence-scovel-shinn/id6770525571) — native SwiftUI
-- [ACIM Workbook](https://apps.apple.com/no/app/acim-workbook/id6443900608) — React Native, subscription model, growing MRR
+- [Florence Scovel Shinn (this app)](https://apps.apple.com/no/app/florence-scovel-shinn/id6770525571) — native SwiftUI, paid
+- [ACIM Workbook](https://apps.apple.com/no/app/acim-workbook/id6443900608) — React Native, subscription model
 - [Meditations by Marcus Aurelius](https://apps.apple.com/no/app/meditations-by-marcus-aurelius/id6476632120) — React Native, paid
 - [Letters from a Stoic](https://apps.apple.com/no/app/letters-from-a-stoic/id6736611477) — React Native, paid
